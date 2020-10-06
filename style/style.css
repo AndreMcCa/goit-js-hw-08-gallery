@@ -1,0 +1,342 @@
+:root {
+  --timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  --animation-duration: 250ms;
+}
+
+html {
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+  color: #212121;
+
+  overflow: hidden;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+.gallery {
+  display: grid;
+  width: 1200px;
+  grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+  grid-auto-rows: 240px;
+  grid-gap: 12px;
+  padding: 0;
+  list-style: none;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.gallery__item {
+  position: relative;
+  box-shadow: 0px 3px 6px 0px rgba(0, 0, 0, 0.2),
+    0px 3px 6px 0px rgba(0, 0, 0, 0.14), 0px 2px 1px -1px rgba(0, 0, 0, 0.12);
+}
+
+.gallery__image:hover {
+  transform: scale(1.03);
+}
+
+.gallery__image {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  transition: transform var(--animation-duration) var(--timing-function);
+}
+
+.gallery__link {
+  display: block;
+  text-decoration: none;
+  height: 100%;
+}
+
+.gallery__link:hover {
+  cursor: zoom-in;
+}
+
+/* Lightbox */
+.lightbox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--animation-duration) var(--timing-function);
+
+  /* background-color: rgba(0, 0, 0, 0.8); */
+}
+
+.lightbox.is-open {
+  opacity: 1;
+  pointer-events: initial;
+}
+
+.lightbox__overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.lightbox__content {
+  transform: scale(1.2);
+  transition: transform 1500ms var(--timing-function);
+}
+
+.lightbox.is-open .lightbox__content {
+  transform: scale(1);
+}
+.lightbox__image {
+  display: block;
+  width: auto;
+  height: auto;
+  max-height: 100vh;
+  max-width: 100vw;
+}
+
+.lightbox__button {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  margin: 0;
+  border: none;
+  border-radius: 50%;
+  background-color: transparent;
+
+  cursor: pointer;
+  transition: background-color var(--animation-duration) var(--timing-function);
+  outline: none;
+  background-image: url("../images/close.svg");
+  background-position: center;
+  background-size: 60%;
+  background-repeat: no-repeat;
+}
+
+.lightbox__button:hover,
+.lightbox__button:focus {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+/* Parralax */
+
+.parallax-box {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+
+  overflow: hidden;
+}
+
+/* сцена 1 */
+
+.parallax-0 {
+  width: 100%;
+  height: 100%;
+
+  background-image: url("../images/gory.jpg");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+
+  transition-property: transform;
+  transition-duration: 2500ms;
+  transition-timing-function: var(--timing-function);
+
+  transform: scale(1.3);
+}
+
+/* сцена 2 */
+
+body.is-active .parallax-0 {
+  transform: scale(1.2);
+  transition-duration: 1500ms;
+}
+
+/* сцена 3 */
+
+body.is-modal-open .parallax-0 {
+  transform: scale(1.15);
+}
+
+/* сцена 1 */
+
+.parallax-1 {
+  width: 100%;
+  height: 100%;
+
+  background-image: url("../images/clouds1.png");
+  background-position: center;
+  background-size: 200%;
+  background-repeat: no-repeat;
+
+  transition-property: background-size;
+  transition-duration: 2000ms;
+
+  transition-timing-function: var(--timing-function);
+}
+
+/* сцена 2 */
+
+body.is-active .parallax-1 {
+  background-size: 110%;
+  transition-duration: 1500ms;
+}
+
+/* сцена 3 */
+
+body.is-modal-open .parallax-1 {
+  background-size: 90%;
+}
+
+/* сцена 1 */
+
+.parallax-2 {
+  width: 100%;
+  height: 100%;
+
+  background-image: url("../images/clouds2.png");
+  background-position: center;
+  background-size: 300%;
+  background-repeat: no-repeat;
+
+  opacity: 0;
+  transition-property: background-size, opacity;
+  transition-timing-function: var(--timing-function);
+}
+
+body.is-active .parallax-2 {
+  background-size: 200%;
+  opacity: 1;
+  transition-delay: 1000ms;
+  transition-duration: 1500ms;
+}
+
+/* сцена 3 */
+
+body.is-modal-open .parallax-2 {
+  background-size: 100%;
+  transition-delay: 0ms;
+}
+
+/* сцена 2 */
+
+body.is-active .parallax-3 {
+  width: 100%;
+  height: 100%;
+
+  background-image: url("../images/clouds3.png");
+
+  background-position: center;
+  background-size: 300%;
+  background-repeat: no-repeat;
+
+  /* opacity: 0; */
+
+  transition-property: background-size, opacity;
+  transition-duration: 1500ms;
+  transition-timing-function: var(--timing-function);
+}
+
+/* сцена 3 */
+
+body.is-modal-open .parallax-3 {
+  background-size: 130%;
+}
+
+/* Gallery */
+
+.gallery-box {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+
+  transform: scale(1.1);
+  opacity: 0;
+
+  transition-property: opacity, transform;
+  transition-duration: 1500ms;
+  transition-delay: 1000ms;
+  transition-timing-function: var(--timing-function);
+}
+
+body.is-active .gallery-box {
+  opacity: 1;
+  transform: scale(1);
+}
+
+body.is-modal-open .gallery-box {
+  transform: scale(0.8);
+}
+
+.lightbox__content {
+  display: flex;
+  align-items: center;
+}
+
+.lightbox-button-left {
+  margin-right: 25px;
+
+  width: 60px;
+  height: 60px;
+
+  background-image: url("../images/left.svg");
+  background-position: 20% 50%;
+  background-repeat: no-repeat;
+  background-size: 70%;
+  border: none;
+  border-radius: 50%;
+  background-color: transparent;
+
+  outline: none;
+  cursor: pointer;
+}
+
+.lightbox-button-right {
+  margin-left: 25px;
+
+  width: 60px;
+  height: 60px;
+
+  background-image: url("../images/right.svg");
+  background-position: 80% 50%;
+  background-repeat: no-repeat;
+  background-size: 70%;
+  border: none;
+  border-radius: 50%;
+  background-color: transparent;
+
+  outline: none;
+  cursor: pointer;
+}
+
+.lightbox-button-left:hover,
+.lightbox-button-right:hover {
+  background-color: rgba(0, 0, 0, 0.5);
+}
